@@ -364,6 +364,8 @@ function useStat() {
 /* ══════════════════════════════════════════
    SOCKET SINGLETON
 ══════════════════════════════════════════ */
+// GitHub Pages などゲームサーバーのない静的デモ用ビルド (VITE_STATIC_DEMO=1)
+const STATIC_DEMO=import.meta.env.VITE_STATIC_DEMO==='1';
 let _sock=null;
 const getSocket=()=>{
   if(!_sock)_sock=io({transports:['websocket','polling'],autoConnect:false});
@@ -1700,7 +1702,7 @@ function MPSetupScreen({onBack}) {
       <div style={{color:T.blue,...label_({letterSpacing:'0.3em',fontSize:'0.78rem'})}}>— MULTIPLAYER —</div>
       <div style={row({gap:'0.45rem'})}>
         <div style={{width:8,height:8,borderRadius:'50%',background:connected?T.green:T.red,flexShrink:0}}/>
-        <span style={{fontSize:'0.7rem',color:connected?T.green:T.red}}>{connected?'接続済み':'接続中...'}</span>
+        <span style={{fontSize:'0.7rem',color:connected?T.green:T.red}}>{connected?'接続済み':STATIC_DEMO?'デモ版ではマルチプレイは使えません（ひとりプレイをどうぞ）':'接続中...'}</span>
       </div>
       <div style={{width:'100%'}}>
         <div style={label_({marginBottom:'0.5rem'})}>プレイヤー名</div>
